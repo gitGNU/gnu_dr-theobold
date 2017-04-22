@@ -88,7 +88,8 @@
 
 (de print-help ()
    (prinll "Common commands are...\n\n"
-      "look, go <exit>, search <item>, use <item>, quit" ) )
+      "help, quit, go <exit>, look, look at <item>, search <item>, \
+       use <item>, break <item>, drop <item>, put <item> in <item>, speak <word>." ) )
 
 (de print-warranty ()
    (prinll
