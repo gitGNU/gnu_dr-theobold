@@ -16,6 +16,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+ABOUT THIS GAME
+
+`Dr. Theobold' is a text adventure game, which means that you play the
+game in a terminal, and that you play by reading text in the terminal
+and enter commands on the keyboard.
+
+Commands need to be kept as simple as possible to be recognized. E.g.,
+you would enter `put water in bottle' and not `put the water in the
+bottle'.
+
+Use the `help' command to see a list of available commands. The list
+might not cover every possible command that can be used.
+
+The game begins outside the front door of Dr. Theobold's house. The
+door is locked, so you must figure out how to get in.
+
+Depending on your PicoLisp installation settings, you may have access
+to command history with either vi-like or emacs-like keyboard
+shortcuts.
+
 DEPENDENCIES
 
 Developed with PicoLisp interpreter version 16.12. Available under the
