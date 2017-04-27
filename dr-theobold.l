@@ -361,7 +361,7 @@
          (room-exit "north" '(() (prinll "The door is locked")))
          (room-exit "east" '(() (enter-room "kitchen")))
          (room-exit "down" '(() (if (read-world-var "elevator-unlocked")
-                                   (enter-room "puzzle-hub")
+                                   (enter-room "programming-room")
                                    (prinll "The elevator does not appear to be functional.") ) ) )
          (room-command '("use" "radio") '(() (use-old-radio)))
          (room-command '("use" "old" "radio") '(() (use-old-radio)))
@@ -441,7 +441,25 @@
                           (set-world-var "microwave-contents" NIL)
                           (prinll "A crystal has been added to your inventory.") ) ) ) ) )
          (room-exit "west" '(() (enter-room "living-room"))) )
-      (room "puzzle-hub"
-         (room-long-description "You are in a room that has not yet been coded! Digital oblivion!")
+      (room "programming-room"
+         (room-long-description "In the center of this room is a rotating chair, nested in an assortment \
+                                 of keyboards and control panels, and surrounded above by a half dozen \
+                                 huge flatscreen computer monitors.")
+         (let force-field-block '(() (prinll "As you try to move closer, you hear a humming noise and feel yourself \
+                                              pushed away by some kind of force field.") )
+            (room-command '("use" "chair") force-field-block)
+            (room-command '("sit" "in" "chair") force-field-block)
+            (room-command '("use" "keyboard") force-field-block)
+            (room-command '("use" "keyboards") force-field-block)
+            (room-command '("use" "control" "panel") force-field-block)
+            (room-command '("use" "control" "panels") force-field-block)
+            (room-command '("use" "panel") force-field-block)
+            (room-command '("use" "panels") force-field-block)
+            (room-command '("use" "monitor") force-field-block)
+            (room-command '("use" "monitors") force-field-block) )
+         (let display-monitor '(() (prinll "The monitors are filled with mysterious computer codes embedded in \
+                                            nested parentheses.") )
+            (room-command '("look" "at" "monitor") display-monitor)
+            (room-command '("look" "at" "monitors") display-monitor) )
          (room-exit "up" '(() (enter-room "living-room"))) )
  ) )
