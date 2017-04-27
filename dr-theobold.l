@@ -343,9 +343,9 @@
                                  mostly open and empty except a few chairs \
                                  and couches in the middle, centered \
                                  around a small table. A small computer \
-                                 tablet is laying on the table. There are \
-                                 doors heading back out to the atrium, \
-                                 and another door into a living room.")
+                                 tablet is laying on the table. There is \
+                                 a door heading back out to the front \
+                                 entrance, and another door into a living room.")
          (room-exit "south" '(() (enter-room "threshold")))
          (room-exit "east" '(() (enter-room "living-room")))
          (room-command '("use" "tablet") '(() (use-crypto-tablet)))
