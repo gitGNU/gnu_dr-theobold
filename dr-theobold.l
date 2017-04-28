@@ -461,5 +461,12 @@
                                             nested parentheses.") )
             (room-command '("look" "at" "monitor") display-monitor)
             (room-command '("look" "at" "monitors") display-monitor) )
-         (room-exit "up" '(() (enter-room "living-room"))) )
+         (room-exit "up" '(() (enter-room "living-room")))
+         (room-exit "west" '(() (enter-room "water-entry"))) )
+      (room "water-entry"
+         (room-long-description "You are in a cavern with a tile floor and a small but deep pool of water \
+                                 at one end. Metal pipes cover the walls. A small submarine, the right \
+                                 size for one person, is docked near the edge of the water.")
+         (room-exit "east" '(() (enter-room "programming-room")))
+         (room-exit "down" '(() (prinll "You try to enter the submarine but cannot find an opening."))) )
  ) )
