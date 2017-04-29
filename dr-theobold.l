@@ -309,6 +309,17 @@
       (10 (prinll "\"...speak 'friend' and enter...\""))
       (11 (prinll "You hear a jazzy tune you don't recognize."))))
 
+(de process-submarine-lock-mechanism (Action)
+   (set-world-var "sub-unlock-sequence"
+      (head 4
+         (cons Action (read-world-var "sub-unlock-sequence")) ) )
+   (when (= (read-world-var "sub-unlock-sequence")
+            '("pull" "rotate" "push" "rotate") )
+      (set-world-var "submarine-unlocked" T)
+      (prinll "The hatch of the submarine suddenly becomes loose. You release that you \
+               understand how the locking mechanism works and can enter and exit the \
+               submarine at will.") ) )
+
 (de start-game ()
    (prinll "\n" "Dr. Theobold: A Text Adventure Game" "\n"
       "Copyright (C) 2017 Christopher Howard" "\n"
@@ -467,6 +478,41 @@
          (room-long-description "You are in a cavern with a tile floor and a small but deep pool of water \
                                  at one end. Metal pipes cover the walls. A small submarine, the right \
                                  size for one person, is docked near the edge of the water.")
+         (room-command '("look" "at" "submarine")
+            '(() (prinll "On the frame of the submarine, you see a lever, which can be either \
+                          pushed or pulled, and a handle which rotates.") ))
+         (room-command '("push" "lever")
+            '(()
+              (if (read-world-var "submarine-unlocked")
+                 (prinll "You already understand how to use the locking mechanism.")
+                 (prog
+                    (prinll "You push the lever forward.")
+                    (process-submarine-lock-mechanism "push") ) ) ) )
+         (room-command '("pull" "lever")
+            '(()
+              (if (read-world-var "submarine-unlocked")
+                 (prinll "You already understand how to use the locking mechanism.")
+                 (prog
+                    (prinll "You pull the lever back.")
+                    (process-submarine-lock-mechanism "pull") ) ) ) )
+         (let turn-cmd
+            '(()
+              (if (read-world-var "submarine-unlocked")
+                 (prinll "You already understand how to use the locking mechanism.")
+                 (prog
+                    (prinll "You rotate the handle.")
+                    (process-submarine-lock-mechanism "rotate") ) ) )
+            (room-command '("rotate" "handle") turn-cmd)
+            (room-command '("turn" "handle") turn-cmd) )
          (room-exit "east" '(() (enter-room "programming-room")))
-         (room-exit "down" '(() (prinll "You try to enter the submarine but cannot find an opening."))) )
+         (room-exit "down"
+            '(() (if (not (read-world-var "submarine-unlocked"))
+                    (prinll "You try to enter the submarine but cannot find an opening.")
+                    (prog
+                       (prinll "You enter the submarine. After figuring out the engine and directional \
+                                controls, you dive the vessel down into the pool.")
+                       (enter-room "water-passage-1") ) ) ) ) )
+      (room "water-passage-1"
+         (room-long-description "You are in an area that has not yet been coded! Digital oblivion!")
+         (room-exit "up" '(() (enter-room "water-entry"))) )
  ) )
