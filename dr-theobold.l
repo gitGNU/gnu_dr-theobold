@@ -512,7 +512,21 @@
                        (prinll "You enter the submarine. After figuring out the engine and directional \
                                 controls, you dive the vessel down into the pool.")
                        (enter-room "water-passage-1") ) ) ) ) )
-      (room "water-passage-1"
-         (room-long-description "You are in an area that has not yet been coded! Digital oblivion!")
-         (room-exit "up" '(() (enter-room "water-entry"))) )
- ) )
+      (let prefix-sub-description
+         '((Str)
+           (pack ""
+              (list "You are inside a single person submarine. You are able to steer the \
+                     craft in any available direction. An advanced set of mechanical \
+                     appendages allows you to manipulate objects outside the boat, or even \
+                     suck small objects into the cabin." "\n\n" Str ) ) )
+         (room "water-passage-1"
+            (room-long-description
+               (prefix-sub-description
+                  "Outside the viewport you see you are in a water filled cavern that continues \
+                   upward and downward." ) )
+            (room-exit "up" '(() (enter-room "water-entry")))
+            (room-exit "down" '(() (enter-room "water-passage-2"))) )
+         (room "water-passage-2"
+            (room-long-description "You are in an area that has not yet been coded! Digital oblivion!")
+            (room-exit "up" '(() (enter-room "water-passage-1"))) )
+         ) ) )
