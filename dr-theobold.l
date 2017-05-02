@@ -25,6 +25,25 @@
    (run ARGLST)
    World )
 
+(de save-world (Filename)
+   (let Result
+      (catch '(NIL)
+         (out Filename
+            (println World) )
+         (prinll "Game progress saved.") )
+      (unless (= Result "Game progress saved.")
+         (prinll Result) ) ) )
+
+(de load-world (Filename)
+   (let Result
+      (catch '(NIL)
+         (in Filename
+            (setq World (read)) )
+         (prinll "Saved game loaded.") )
+      (if (<> Result "Saved game loaded.")
+         (prinll Result)
+         (look-at-room (location)) ) ) )
+
 (de location @
    (if (not (arg 1))
       (aa-search-val World "location")
