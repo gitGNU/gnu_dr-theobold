@@ -30,8 +30,9 @@
       (catch '(NIL)
          (out Filename
             (println World) )
-         (prinll "Game progress saved.") )
-      (unless (= Result "Game progress saved.")
+         (prinll "Game progress saved.")
+         'Complete)
+      (unless (= Result 'Complete)
          (prinll Result) ) ) )
 
 (de load-world (Filename)
@@ -39,8 +40,9 @@
       (catch '(NIL)
          (in Filename
             (setq World (read)) )
-         (prinll "Saved game loaded.") )
-      (if (<> Result "Saved game loaded.")
+         (prinll "Saved game loaded.")
+         'Complete )
+      (if (<> Result 'Complete)
          (prinll Result)
          (look-at-room (location)) ) ) )
 
@@ -180,6 +182,14 @@
 
          (when (or (= Cmd '("inventory")) (= Cmd '("show" "inventory")))
             (prog (print-inventory) (continue)) )
+
+         (when (= Cmd '("save"))
+            (save-world "theobold.sav")
+            (continue) )
+         
+         (when (= Cmd '("load"))
+            (load-world "theobold.sav")
+            (continue) )
          
          (let (RoomCmd
                (aa-search-val
