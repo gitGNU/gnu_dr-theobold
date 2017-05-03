@@ -43,7 +43,9 @@
          (prinll "Saved game loaded.")
          'Complete )
       (if (<> Result 'Complete)
-         (prinll Result)
+         (prog
+            (prinll Result)
+            (prinll "Could not find file \"theobold.sav\" in current directory.") )
          (look-at-room (location)) ) ) )
 
 (de location @
@@ -109,7 +111,7 @@
 
 (de print-help ()
    (prinll "Common commands are...\n\n"
-      "help, quit, go <exit>, look, look at <item>, search <item>, \
+      "help, quit, save, load, go <exit>, look, look at <item>, search <item>, \
        use <item>, break <item>, drop <item>, put <item> in <item>, speak <word>." ) )
 
 (de print-warranty ()
