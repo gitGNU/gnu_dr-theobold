@@ -351,6 +351,16 @@
                understand how the locking mechanism works and can enter and exit the \
                submarine at will.") ) )
 
+(de process-stuck-sub-move (Action)
+   (set-world-var "sub-unstuck-sequence"
+      (head 6
+         (cons Action (read-world-var "sub-unstuck-sequence")) ) )
+   (when (let Sequence (read-world-var "sub-unstuck-sequence")
+            (or (= Sequence '(up west east up west east))
+               (= Sequence '(up east west up east west)) ) )
+      (set-world-var "sub-unstuck" T)
+      (prinll "With an effort, the submarine pulls itself free of the mud.") ) )
+
 (de start-game ()
    (prinll "\n" "Dr. Theobold: A Text Adventure Game" "\n"
       "Copyright (C) 2017 Christopher Howard" "\n"
@@ -561,16 +571,47 @@
             (room-long-description
                (prefix-sub-description
                   "Outside the viewport you see you are in a water filled cavern that continues \
-                   upward and downward." ) )
+                   upwards and downwards." ) )
             (room-exit "up" '(() (enter-room "water-passage-1")))
             (room-exit "down"
                '(() (unless (read-world-var "sub-unstuck")
                        (prinll "You feel a jarring thud as the submarine collides with the bottom of the \
-                                tunnel and embeddes itself deeply into some kind of gooey mud."))
+                                tunnel and embeddes itself deeply into some gooey mud."))
                  (enter-room "mud-trap") ) ) )
          (room "mud-trap"
             (room-long-description
                (prefix-sub-description
+                  "The cavern bottoms out here into a pit of thick mud. Through the \
+                   viewports, you can see an opening above, as well off toward the west \
+                   and toward the east." ) )
+            (room-exit "up"
+               '(() (if (read-world-var "sub-unstuck")
+                       (enter-room "water-passage-2")
+                       (prog
+                          (prinll "You attempt to raise the vessel, pulling it against the mud.")
+                          (process-stuck-sub-move 'up) ) ) ) )
+            (room-exit "west"
+               '(() (if (read-world-var "sub-unstuck")
+                       (enter-room "water-passage-3")
+                       (prog
+                          (prinll "You throttle forwards, nudging the submarine a little through the mud. \
+                                   Fortunately, the propellers are above the top of the mud.")
+                          (process-stuck-sub-move 'west) ) ) ) )
+            (room-exit "east"
+               '(() (if (read-world-var "sub-unstuck")
+                       (enter-room "water-passage-4")
+                       (prog
+                          (prinll "You throttle backwards, nudging the submarine a little through the mud. \
+                                   Fortunately, the propellers are above the top of the mud.")
+                          (process-stuck-sub-move 'east) ) ) ) ) )
+         (room "water-passage-3"
+            (room-long-description
+               (prefix-sub-description
                   "You are in an area that has not yet been coded. Digital oblivion!" ) )
-            (room-exit "up" '(() (enter-room "water-passage-2"))) ) )
+            (room-exit "east" '(() (enter-room "mud-trap"))) )
+         (room "water-passage-4"
+            (room-long-description
+               (prefix-sub-description
+                  "You are in an area that has not yet been coded. Digital oblivion!" ) )
+            (room-exit "west" '(() (enter-room "mud-trap"))) ) )
  ) )
