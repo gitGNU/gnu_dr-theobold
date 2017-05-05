@@ -559,18 +559,19 @@
               (list "You are inside a single person submarine. You are able to steer the \
                      craft in any available direction. An advanced set of mechanical \
                      appendages allows you to manipulate objects outside the boat, or even \
-                     suck small objects into the cabin." "\n\n" Str ) ) )
+                     suck small objects into the cabin. Lights on the vessel brighten the \
+                     surrounding water." "\n\n" Str ) ) )
          (room "water-passage-1"
             (room-long-description
                (prefix-sub-description
-                  "Outside the viewport you see you are in a water filled cavern that continues \
+                  "Outside the viewports you see you are in a water filled cavern that continues \
                    upward and downward." ) )
             (room-exit "up" '(() (enter-room "water-entry")))
             (room-exit "down" '(() (enter-room "water-passage-2"))) )
          (room "water-passage-2"
             (room-long-description
                (prefix-sub-description
-                  "Outside the viewport you see you are in a water filled cavern that continues \
+                  "Outside the viewports you see you are in a water filled cavern that continues \
                    upwards and downwards." ) )
             (room-exit "up" '(() (enter-room "water-passage-1")))
             (room-exit "down"
@@ -607,11 +608,37 @@
          (room "water-passage-3"
             (room-long-description
                (prefix-sub-description
-                  "You are in an area that has not yet been coded. Digital oblivion!" ) )
+                  "Outside the viewports you see you are in a water filled cavern that continues \
+                   to the west and to the east." ))
+            (room-exit "west" '(() (enter-room "water-passage-5")))
             (room-exit "east" '(() (enter-room "mud-trap"))) )
          (room "water-passage-4"
             (room-long-description
                (prefix-sub-description
                   "You are in an area that has not yet been coded. Digital oblivion!" ) )
-            (room-exit "west" '(() (enter-room "mud-trap"))) ) )
+            (room-exit "west" '(() (enter-room "mud-trap"))) )
+         (room "water-passage-5"
+            (room-long-description
+               (prefix-sub-description
+                  "Outside the viewports you see you are in a water filled cavern that continues \
+                   to the north and to the east." ))
+            (room-exit "north" '(() (enter-room "ladder-cavern")))
+            (room-exit "east" '(() (enter-room "water-passage-4"))) )
+         (room "water-passage-5"
+            (room-long-description
+               (prefix-sub-description
+                  "Outside the viewports you see you are in a water filled cavern that continues \
+                   to the north and to the east. The tunnel to the north looks narrow and low but \
+                   should be large enough for the submarine." ))
+            (room-exit "north" '(() (enter-room "ladder-cavern")))
+            (room-exit "east" '(() (enter-room "water-passage-4"))) )
+         (room "ladder-cavern"
+            (room-long-description
+               (prefix-sub-description
+                  "Your submarine is in a bottle shaped cave mostly filled with water. The top \
+                   narrows some more and you see a bubble of air, large enough that you can open \
+                   the hatch into it. A sturdy ladder hangs down out of a hole in the ceiling." ))
+            (room-exit "south" '(() (enter-room "water-passage-5")))
+            (room-exit "up" '(() (prinll "You wish to climb the ladder, but sense that the room \
+                                          above has not yet been coded." )))))
  ) )
